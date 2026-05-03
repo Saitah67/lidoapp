@@ -1,0 +1,28 @@
+from flask import Flask
+from flask_cors import CORS
+
+from app.routes.users import users_bp
+from app.routes.likes import likes_bp
+from app.routes.posts import posts_bp
+from app.routes.reels import reels_bp
+from app.routes.comments import comments_bp
+from app.routes.follows import follows_bp
+
+app = Flask(__name__)
+CORS(app)
+
+app.register_blueprint(users_bp, url_prefix="/api/users")
+app.register_blueprint(likes_bp, url_prefix="/api/likes")
+app.register_blueprint(posts_bp, url_prefix="/api/posts")
+app.register_blueprint(reels_bp, url_prefix="/api/reels")
+app.register_blueprint(comments_bp, url_prefix="/api/comments")
+app.register_blueprint(follows_bp, url_prefix="/api/follows")
+
+
+@app.route("/")
+def home():
+    return {"message": "Instagram backend running"}
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
